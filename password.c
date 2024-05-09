@@ -3,55 +3,86 @@
 #include <time.h>
 #include <string.h>
 
-//karakterlerin rastgele seçildiği fonksiyon
-//Function where we choose random characters
-void password(int password_length){
-char list[] = "1234567890qwertyuiopasdfghjklzxcvbnm!@#$%^&*()_- +=QWERTYUIOPASDFGHJKLZXCVBNM[]{};':\"<>,.?/";
-srand(time(NULL));
-for(int i=0;i<password_length;i++)
-{
-    printf("%c",list[rand()%(sizeof(list)-1)]);
+#define MY_LENGTH 15
 
-}
-printf("\n");
-}
-//Karakterleri kendimizin seçtiği fonksiyon
-//Function where we choose our own characters
-void mypassword(int password_length)
+char *generatePassword(int length)
 {
-    char my_list[100];
-    printf("Enter yoou characters:");
-    scanf("%s",&my_list);
+    //bellekte gerekilen alan acılır
+    char *password = (char *)malloc((length + 1) * sizeof(char));
+    const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
     srand(time(NULL));
-    for(int i=0;i<password_length;i++)
+
+    if (password)
     {
-    printf("%c",my_list[rand()%strlen(my_list)]);
+        for (int i = 0; i < length; i++)
+        {
+            //rastgele karakter seçilir ve uzunluğa gore ayarlanır
+            int index = rand() % (sizeof(charset) - 1);
+            //seçilen her karakter sırasıyla passwordun içine yazılır
+            password[i] = charset[index];
+        }
+        password[length] = '\0';
     }
-    printf("\n");   
+    return password;
 }
 
 int main()
 {
-     int choice,password_length;
-    printf("1-I chooice my random characters\n2-Random\n");
-    scanf("%d",&choice);
-    if(choice==1)
-    {
-        printf("Enter password length:");
-        scanf("%d",&password_length);
-        mypassword(password_length);
-        
-    }
-    else if(choice==2)
-    {
-        printf("Enter password length:");
-        scanf("%d",&password_length);
-        password(password_length);
-    }
-    else
-    {
-        printf("Wrong input!");
+    int choice;
+    int length;
+    char my_list[15];
 
+    printf("1-Choose your characters\n2-Random\n3-Exit\n");
+    scanf("%d", &choice);
+
+    switch (choice)
+    {
+    case 1:
+        printf("Enter password Length: ");
+        scanf("%d", &length);
+        if (length > MY_LENGTH)
+        {
+            printf("Error: Password length cannot exceed %d characters.\n", MY_LENGTH);
+            return 1;
+        }
+        printf("Enter your character list: ");
+        scanf("%s", my_list);
+
+        srand(time(NULL));
+        printf("Generated password: ");
+        for (int i = 0; i < length; i++)
+        {
+            //my list içineki karakterler alınır ve uzunluğa göre rastgele sıralanır
+            printf("%c", my_list[rand() % strlen(my_list)]);
+        }
+        break;
+    case 2:
+        printf("Enter password length: ");
+        scanf("%d", &length);
+
+        if (length > MY_LENGTH)
+        {
+            printf("Error: Password length cannot exceed %d characters.\n", MY_LENGTH);
+            return 1;
+        }
+
+        char *password = generatePassword(length);
+        if (password)
+        {
+            printf("Generated password: %s\n", password);
+            free(password);
+        }
+        else
+        {
+            printf("Error: Failed to generate password.\n");
+        }
+        break;
+    case 3:
+        break;
+    default:
+     printf("Invalid choice.\n");
+        break;
     }
+
     return 0;
 }
