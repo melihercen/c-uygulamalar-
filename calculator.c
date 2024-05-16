@@ -3,7 +3,7 @@
 #include <math.h>
 
 
-void exponentiate(int base,int upper);
+void exponentiate(int,int);
 
 int main()
 {
