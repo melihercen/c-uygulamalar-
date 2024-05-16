@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-
 void exponentiate(int,int);
+int permutation(int PermNum);
 
 int main()
 {
@@ -16,12 +16,13 @@ int main()
     int base,upper;
     int squareroot;
     float sqrtresult;
-    printf("1-Basic processing(+,-,/,*)\n2-Exponentiate /Extraction \n");
+    int permNum;
+    printf("1-Basic processing(+,-,/,*)\n2-Exponentiate /Extraction /Permutation \n");
     scanf("%d",&operation);
     if(operation==2)
     {
         
-        printf("1-Exponentiate \n2-Extraction\n");
+        printf("1-Exponentiate \n2-Extraction\n3-Permutation\n");
         scanf("%d",&choice);
         switch (choice)
         {
@@ -38,7 +39,13 @@ int main()
             scanf("%d",&squareroot);
             sqrtresult=sqrt(squareroot);
             printf("square root of %d = %f",squareroot,sqrtresult);
-            break;       
+            break; 
+        case 3:
+            printf("Enter the number to be permuted: ");
+            scanf("%d",&permNum);
+            int result=permutation(permNum);
+            printf("%d!= %d",permNum,result); 
+            break;
         default:
             break;
         }
@@ -153,8 +160,6 @@ int main()
 
     return 0;
 }
-
-
 void exponentiate(int base,int upper)
 {
     if(upper==0)
@@ -173,5 +178,13 @@ void exponentiate(int base,int upper)
     }
     printf("%d to the power of %d =",base,upper);
     printf("%d",result);
+    }
+}
+
+int permutation(int PermNum)
+{
+    if(PermNum>1)
+    {
+        return PermNum*permutation(PermNum-1);
     }
 }
