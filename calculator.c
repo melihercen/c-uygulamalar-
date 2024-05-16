@@ -3,26 +3,8 @@
 #include <math.h>
 
 
-void exponentiate(int base,int upper)
-{
-    if(upper==0)
-    {
-        printf("%d to the power of %d = 1",base,upper);
-    }
-    else{
-    int result=base;
-    //taban belirtilen us ifadesi kadar dongude carpma
-    //multiply in the loop until the base specified exponent expression
-    for(int i=1;i<upper;i++)
-    {
-        
-        result*=base;
-        
-    }
-    printf("%d to the power of %d =",base,upper);
-    printf("%d",result);
-    }
-}
+void exponentiate(int base,int upper);
+
 int main()
 {
     float num1,num2,num3,num4;
@@ -170,4 +152,26 @@ int main()
         }
 
     return 0;
+}
+
+
+void exponentiate(int base,int upper)
+{
+    if(upper==0)
+    {
+        printf("%d to the power of %d = 1",base,upper);
+    }
+    else{
+    int result=base;
+    //taban belirtilen us ifadesi kadar dongude carpma
+    //multiply in the loop until the base specified exponent expression
+    for(int i=1;i<upper;i++)
+    {
+        
+        result*=base;
+        
+    }
+    printf("%d to the power of %d =",base,upper);
+    printf("%d",result);
+    }
 }
