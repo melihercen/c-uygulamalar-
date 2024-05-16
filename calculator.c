@@ -166,6 +166,16 @@ void exponentiate(int base,int upper)
     {
         printf("%d to the power of %d = 1",base,upper);
     }
+    else if(upper<0)
+    {
+        float result=1;
+        for(int i=0;i<-y;i++)
+            {
+                result/=-base;
+            }
+        printf("%d to the power of %d = %f",base,upper,result);
+        
+    }
     else{
     int result=base;
     //taban belirtilen us ifadesi kadar dongude carpma
